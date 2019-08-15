@@ -1,0 +1,14 @@
+
+Name of Quantlet: 'EMAIS_Visual'
+
+Published in: 'Bachelor Thesis: Evaluation of Multi-Asset Investment Strategies with Digital Assets'
+
+Description: 'This Quantlet produces visual results of the optimization routines. It gives information about (cumulated) performance, density, success metrics and their reliability as well as results according to strategies and estimators.'
+
+Keywords: 'plot, boxplot, density, performance, table, dispersion, t-test, shapiro, wilk, test, normality, sharpe, ceq'
+
+Author: 'Erin Dirk Spruenken'
+
+See also: 'EMAIS_DataManip, EMAIS_ParamEst, EMAIS_Optim'
+
+Datafile: 'functions.R, Results.RData, dates.RData'

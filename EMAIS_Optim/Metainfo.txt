@@ -1,0 +1,14 @@
+
+Name of Quantlet: 'EMAIS_Optim'
+
+Published in: 'Bachelor Thesis: Evaluation of Multi-Asset Investment Strategies with Digital Assets'
+
+Description: 'This Quantlet provides necessary functions for portfolio optimization. Single optimization routines are stored in the subfolder opt. The Quantlet wraps them and produces a set of estimated weights as well as the true returns of the portfolios.'
+
+Keywords: 'portfolio, optimization, asset, allocation, mean, variance, markowitz, cvar, libro, geometric, mean, maximization'
+
+Author: 'Erin Dirk Spruenken'
+
+See also: 'EMAIS_DataManip, EMAIS_ParamEst, EMAIS_Visual'
+
+Datafile: 'parameters.RData'

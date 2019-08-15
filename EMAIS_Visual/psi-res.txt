@@ -1,0 +1,36 @@
+% latex table generated in R 3.4.0 by xtable 1.8-2 package
+% Thu Aug 15 16:27:45 2019
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlllll}
+  \hline
+ & CEQ & SR & ASR & TO & TR \\ 
+  \hline
+Naive (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.80245623$ \\ 
+  Constrained Minimum Variance (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02130503$ \\ 
+  Global Minimum Variance (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02673620$ \\ 
+  Sharpe Ratio (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $-0.29011881$ \\ 
+  F-Geometric Mean Maximization (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.83233161$ \\ 
+  C-Geometric Mean Maximization (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.58713020$ \\ 
+  LIBRO-MPT (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.04485649$ \\ 
+  LIBRO-CVaR (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 2.14004782$ \\ 
+  CVaR (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.92316796$ \\ 
+  Constrained Minimum Variance (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02085883$ \\ 
+  Global Minimum Variance (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02673620$ \\ 
+  Sharpe Ratio (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 0.01715958$ \\ 
+  F-Geometric Mean Maximization (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.82419492$ \\ 
+  C-Geometric Mean Maximization (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.51222226$ \\ 
+  LIBRO-MPT (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.04439927$ \\ 
+  LIBRO-CVaR (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 2.17572983$ \\ 
+  CVaR (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.98049611$ \\ 
+  Constrained Minimum Variance (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02322384$ \\ 
+  Global Minimum Variance (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02673620$ \\ 
+  Sharpe Ratio (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.10197432$ \\ 
+  F-Geometric Mean Maximization (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.82245758$ \\ 
+  C-Geometric Mean Maximization (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.12867429$ \\ 
+  LIBRO-MPT (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.07366295$ \\ 
+  LIBRO-CVaR (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 2.15879489$ \\ 
+  CVaR (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 2.11598538$ \\ 
+   \hline
+\end{tabular}
+\end{table}
