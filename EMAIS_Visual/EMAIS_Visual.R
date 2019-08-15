@@ -231,3 +231,104 @@ M = 120
     png(file = "scatter_total.png", width = 900, height = 600)
       plot(main = "Mean-Variance", xlab = expression(sigma), ylab = expression(mu), x = sig.1, y = mu.1, cex = 3, col = rep(c("red", "darkgreen", "blue"), each = 7), ylim = c(min.2, max.2), xlim = c(x.min, x.max), pch = c(0,1,2,3,4,6,8), lwd = 3)
     dev.off()
+    
+    ##################################################################################################
+    ##### The following is the same plotting script but produces PDF-files instead of png files! #####
+    ##################################################################################################
+    
+    for(i in 1:length(perf)){
+      pdf(file = paste0("./performance/", names(P)[i], ".pdf"), width = 9, height = 6)
+      plot(perf[[i]], xlab = "Time", ylab = "Wealth", main = "Cumulative Performance", type = "l", lwd = 2.3, xaxt = "n")
+      axis(1, at = c(0,200,400,600,765), labels = dates.tck[c(M+1, M+200, M+400, M+600, M+765)])
+      dev.off()
+    }
+    
+    #plot specific results
+    #Prepare
+    min.1 = min(sapply(perf[c(1, 5, 24)], min))
+    max.1 = max(sapply(perf[c(1, 5, 24)], max))
+    perf.1 = as.numeric(lapply(perf, "[", length(perf[[1]])))
+    
+    #Plot
+    pdf(file = "./performance_1.pdf", width = 9, height = 6)
+    plot(perf[[1]], xlab = "Time", ylab = "Return", main = "Cumulative Performance", ylim = c(min.1, max.1), type = "l", lwd = 3, xaxt = "n")#, xaxs = "i")
+    lines(perf[[2]], col = "green", lwd = 3) #Constrained Minimum Variance (AM)
+    lines(perf[[5]], col = "red", lwd = 3) # F-Geometric Mean Maximization (AM)
+    lines(perf[[24]], col = "blue", lwd = 3) # LIBRO-CVaR (BS)
+    lines(perf[[19]], col = "orange", lwd = 3) # Global Minimum Variance (BS)
+    axis(1, at = c(0,200,400,600,765), labels = dates.tck[c(M+1, M+200, M+400, M+600, M+765)])
+    dev.off()
+    
+    #Boxplots
+    #Prepare
+    mu = as.numeric(lapply(P, mean))
+    sig = as.numeric(lapply(P, sd))
+    med.1 = as.numeric(lapply(P, median))
+    iqr.1 = as.numeric(lapply(P, IQR))
+    mu.1 = mu[-c(1,4,12,20)] #remove naive and outliers (SR strategies)
+    sig.1 = sig[-c(1,4,12,20)]
+    names(mu.1) = names(P)[-c(1,4,12,20)]
+    names(sig.1) = names(mu.1)
+    names(med.1) = names(mu.1)
+    names(iqr.1) = names(mu.1)
+    gm.mean = as.numeric(lapply(P.gross, FUN = function(x){-1 + geometric.mean(x)}))
+    gm.mean.1 = gm.mean[-c(1,4,12,20)]
+    names(gm.mean.1) = names(mu.1)
+    perf.2 = perf.1[-c(1,4,12,20)]
+    names(perf.2) = names(mu.1)
+    
+    #plots
+    pdf(file = "./boxplot_mean.pdf", width = 9, height = 6)
+    boxplot(main = "Mean Return by Estimator", mu.1[1:7], mu.1[8:14], mu.1[15:21], las = 2) #non-robust location parameter
+    axis(1, labels = c("Arithmetic Mean", "Geometric Mean", "Bayes-Stein"), at = c(1,2,3))
+    dev.off()
+    pdf(file = "./boxplot_sd.pdf", width = 9, height = 6)
+    boxplot(sig.1[1:7], sig.1[8:14], sig.1[15:21], main = "Standard Deviation by Estimator", las = 2) #non-robust disperion parameter
+    axis(1, labels = c("Arithmetic Mean", "Geometric Mean", "Bayes-Stein"), at = c(1,2,3))
+    dev.off()
+    pdf(file = "./boxplot_med.pdf", width = 9, height = 6)
+    boxplot(med.1[1:7], med.1[8:14], med.1[15:21], main = "Median Return by Estimator", las = 2) #robust location parameter
+    axis(1, labels = c("Arithmetic Mean", "Geometric Mean", "Bayes-Stein"), at = c(1,2,3))
+    dev.off()
+    pdf(file = "./boxplot_iqr.pdf", width = 9, height = 6)
+    boxplot(iqr.1[1:7], iqr.1[8:14], iqr.1[15:21], main = "Interquartile Range by Estimator", las = 2) #robust dispersion parameter
+    axis(1, labels = c("Arithmetic Mean", "Geometric Mean", "Bayes-Stein"), at = c(1,2,3))
+    dev.off()
+    pdf(file = "./boxplot_tr.pdf", width = 9, height = 6)
+    boxplot(perf.2[1:7], perf.2[8:14], perf.2[15:21], main = "Terminal Return by Estimator", las = 2) #final outcome
+    axis(1, labels = c("Arithmetic Mean", "Geometric Mean", "Bayes-Stein"), at = c(1,2,3))
+    dev.off()
+    pdf(file = "./boxplot_gm.pdf", width = 9, height = 6)
+    boxplot(gm.mean.1[1:7], gm.mean.1[8:14], gm.mean.1[15:21], main = "Geometric Mean by Estimator", las = 2) #geometric mean
+    axis(1, labels = c("Arithmetic Mean", "Geometric Mean", "Bayes-Stein"), at = c(1,2,3))
+    dev.off()
+    
+    #Density plots
+    for(i in 1:length(perf)){
+      pdf(file = paste0("./density/", names(P)[i], ".pdf"), width = 9, height = 6)
+      plot(density(P[[i]]*100), main = "Kernel Density Estimate", type = "l", lwd = 3, xlab = "Return in %")
+      abline(v = mean(P[[i]]), lwd = 3, col = "red")
+      abline(v = median(P[[i]]), lwd = 3, col = "blue")
+      dev.off()
+    }
+    
+    
+    #Scatterplots    
+    min.2 = min(mu.1)
+    max.2 = max(mu.1)
+    x.min = min(sig.1)
+    x.max = max(sig.1)
+    pdf(file = "./scatter_est.pdf", width = 9, height = 6)
+    plot(main = "Mean-Variance by Estimator", x = sig.1, y = mu.1, cex =3, pch = 19, col = rep(c("red", "green", "blue"), each = 8), xlab = expression(sigma), ylab = expression(mu), ylim = c(min.2, max.2), xlim = c(x.min, x.max)) #red AM, green GM, blue BS
+    dev.off()
+    
+    pdf(file = "./scatter_strat.pdf", width = 9, height = 6)
+    plot(main = "Mean-Variance by Strategy", xlab = expression(sigma), ylab = expression(mu), sig.1[c(1,2,3,8,9,10,15,16,17)], mu.1[c(1,2,3,8,9,10,15,16,17)], cex = 3, pch = 19, col = rep(c("red", "green", "blue"), 3), ylim = c(min.2, max.2), xlim = c(x.min, x.max))
+    points(sig.1[c(4,5,6,11,12,13,18,19,20)], mu.1[c(4,5,6,11,12,13,18,19,20)], cex = 3, pch = 4, col = rep(c("red", "green", "blue"), 3), lwd = 3)
+    points(sig.1[c(7,14,21)], mu.1[c(7,14,21)], cex = 3, pch = 17, col = "blue")    
+    dev.off()
+    
+    pdf(file = "./scatter_total.pdf", width = 9, height = 6)
+    plot(main = "Mean-Variance", xlab = expression(sigma), ylab = expression(mu), x = sig.1, y = mu.1, cex = 3, col = rep(c("red", "darkgreen", "blue"), each = 7), ylim = c(min.2, max.2), xlim = c(x.min, x.max), pch = c(0,1,2,3,4,6,8), lwd = 3)
+    points(x = sig[1], y = mu[1], pch = 19, col = "black", lwd = 3)
+    dev.off()
