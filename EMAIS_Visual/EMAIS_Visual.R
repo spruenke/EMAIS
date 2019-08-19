@@ -2,7 +2,7 @@ rm(list = ls())
 graphics.off()
 
 #set proper working direcotry
-dir = "D:/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/b-thesis/Quantlet/visualization"
+dir = "D:/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/EMAIS_git/EMAIS_Visual"
 setwd(dir)
 
 load("Results.RData")
@@ -146,7 +146,7 @@ M = 120
     #Plot
     png(file = "performance_1.png", width = 1920, height = 1080)
     plot(perf[[1]], xlab = "Time", ylab = "Return", main = "Cumulative Performance", ylim = c(min.1, max.1), type = "l", lwd = 3, xaxt = "n")#, xaxs = "i")
-    lines(perf[[2]], col = "green", lwd = 3) #Constrained Minimum Variance (AM)
+    lines(perf[[2]], col = "darkgreen", lwd = 3) #Constrained Minimum Variance (AM)
     lines(perf[[5]], col = "red", lwd = 3) # F-Geometric Mean Maximization (AM)
     lines(perf[[24]], col = "blue", lwd = 3) # LIBRO-CVaR (BS)
     lines(perf[[19]], col = "orange", lwd = 3) # Global Minimum Variance (BS)
@@ -230,6 +230,7 @@ M = 120
     
     png(file = "scatter_total.png", width = 900, height = 600)
       plot(main = "Mean-Variance", xlab = expression(sigma), ylab = expression(mu), x = sig.1, y = mu.1, cex = 3, col = rep(c("red", "darkgreen", "blue"), each = 7), ylim = c(min.2, max.2), xlim = c(x.min, x.max), pch = c(0,1,2,3,4,6,8), lwd = 3)
+      points(x = sig[1], y = mu[1], pch = 19, col = "black", cex = 2)
     dev.off()
     
     ##################################################################################################
@@ -252,7 +253,7 @@ M = 120
     #Plot
     pdf(file = "./performance_1.pdf", width = 9, height = 6)
     plot(perf[[1]], xlab = "Time", ylab = "Return", main = "Cumulative Performance", ylim = c(min.1, max.1), type = "l", lwd = 3, xaxt = "n")#, xaxs = "i")
-    lines(perf[[2]], col = "green", lwd = 3) #Constrained Minimum Variance (AM)
+    lines(perf[[2]], col = "darkgreen", lwd = 3) #Constrained Minimum Variance (AM)
     lines(perf[[5]], col = "red", lwd = 3) # F-Geometric Mean Maximization (AM)
     lines(perf[[24]], col = "blue", lwd = 3) # LIBRO-CVaR (BS)
     lines(perf[[19]], col = "orange", lwd = 3) # Global Minimum Variance (BS)
@@ -330,5 +331,5 @@ M = 120
     
     pdf(file = "./scatter_total.pdf", width = 9, height = 6)
     plot(main = "Mean-Variance", xlab = expression(sigma), ylab = expression(mu), x = sig.1, y = mu.1, cex = 3, col = rep(c("red", "darkgreen", "blue"), each = 7), ylim = c(min.2, max.2), xlim = c(x.min, x.max), pch = c(0,1,2,3,4,6,8), lwd = 3)
-    points(x = sig[1], y = mu[1], pch = 19, col = "black", lwd = 3)
+    points(x = sig[1], y = mu[1], pch = 19, col = "black", cex = 2)
     dev.off()

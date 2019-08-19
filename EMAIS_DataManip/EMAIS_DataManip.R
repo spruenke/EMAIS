@@ -2,7 +2,7 @@ rm(list = ls())
 graphics.off()
 
 #Set proper working directory
-dir = "D:/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/b-thesis/Quantlet/data_manipulation"
+dir = "D:/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/EMAIS_git/EMAIS_DataManip"
 setwd(dir)
 
 ##########################

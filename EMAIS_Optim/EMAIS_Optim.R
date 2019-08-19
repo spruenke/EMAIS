@@ -4,7 +4,7 @@ rm(list = ls())
 graphics.off()
 
 #set proper working direcotry
-dir = "D:/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/b-thesis/Quantlet/optimization"
+dir = "D:/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/EMAIS_git/EMAIS_Optim"
 setwd(dir)
 load("final_set.RData")
 load("parameters.RData")

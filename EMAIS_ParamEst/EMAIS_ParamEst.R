@@ -2,7 +2,7 @@ rm(list = ls())
 graphics.off()
 
 #Set proper working directory of this script:
-dir = "D:/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/b-thesis/Quantlet/parameter_estimation"
+dir = "D:/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/EMAIS_git/EMAIS_ParamEst"
 setwd(dir)
 load("final_set.RData")
 source("functions.R")

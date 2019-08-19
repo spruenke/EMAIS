@@ -1,36 +1,36 @@
-% latex table generated in R 3.4.0 by xtable 1.8-2 package
-% Thu Aug 15 16:27:45 2019
+% latex table generated in R 3.5.1 by xtable 1.8-3 package
+% Sat Aug 17 17:08:51 2019
 \begin{table}[ht]
 \centering
 \begin{tabular}{rlllll}
   \hline
  & CEQ & SR & ASR & TO & TR \\ 
   \hline
-Naive (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.80245623$ \\ 
-  Constrained Minimum Variance (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02130503$ \\ 
-  Global Minimum Variance (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02673620$ \\ 
-  Sharpe Ratio (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $-0.29011881$ \\ 
-  F-Geometric Mean Maximization (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.83233161$ \\ 
-  C-Geometric Mean Maximization (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.58713020$ \\ 
-  LIBRO-MPT (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.04485649$ \\ 
-  LIBRO-CVaR (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 2.14004782$ \\ 
-  CVaR (AM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.92316796$ \\ 
-  Constrained Minimum Variance (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02085883$ \\ 
-  Global Minimum Variance (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02673620$ \\ 
-  Sharpe Ratio (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 0.01715958$ \\ 
-  F-Geometric Mean Maximization (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.82419492$ \\ 
-  C-Geometric Mean Maximization (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.51222226$ \\ 
-  LIBRO-MPT (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.04439927$ \\ 
-  LIBRO-CVaR (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 2.17572983$ \\ 
-  CVaR (GM) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.98049611$ \\ 
-  Constrained Minimum Variance (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02322384$ \\ 
-  Global Minimum Variance (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.02673620$ \\ 
-  Sharpe Ratio (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.10197432$ \\ 
-  F-Geometric Mean Maximization (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.82245758$ \\ 
-  C-Geometric Mean Maximization (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.12867429$ \\ 
-  LIBRO-MPT (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 1.07366295$ \\ 
-  LIBRO-CVaR (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 2.15879489$ \\ 
-  CVaR (BS) & $NA$ & $NA$ & $NA$ & $NA$ & $ 2.11598538$ \\ 
+Naive (AM) & $ 0.0008$ & $ 0.0898$ & $ 0.0895$ & $ 0.0000$ & $ 1.8025$ \\ 
+  Constrained Minimum Variance (AM) & $ 0.0000$ & $ 0.0077$ & $ 0.0077$ & $ 0.3171$ & $ 1.0213$ \\ 
+  Global Minimum Variance (AM) & $ 0.0000$ & $ 0.0090$ & $ 0.0090$ & $ 0.3013$ & $ 1.0267$ \\ 
+  Sharpe Ratio (AM) & $-0.9658$ & $-0.0435$ & $-0.0486$ & $80.4674$ & $-0.2901$ \\ 
+  F-Geometric Mean Maximization (AM) & $ 0.0008$ & $ 0.0915$ & $ 0.0913$ & $ 0.0114$ & $ 1.8323$ \\ 
+  C-Geometric Mean Maximization (AM) & $ 0.0006$ & $ 0.0648$ & $ 0.0646$ & $ 0.2257$ & $ 1.5871$ \\ 
+  LIBRO-MPT (AM) & $ 0.0001$ & $ 0.0131$ & $ 0.0131$ & $ 0.3211$ & $ 1.0449$ \\ 
+  LIBRO-CVaR (AM) & $ 0.0010$ & $ 0.0976$ & $ 0.0976$ & $ 0.6700$ & $ 2.1400$ \\ 
+  CVaR (AM) & $ 0.0009$ & $ 0.0849$ & $ 0.0850$ & $ 0.6699$ & $ 1.9232$ \\ 
+  Constrained Minimum Variance (GM) & $ 0.0000$ & $ 0.0076$ & $ 0.0076$ & $ 0.3180$ & $ 1.0209$ \\ 
+  Global Minimum Variance (GM) & $ 0.0000$ & $ 0.0090$ & $ 0.0090$ & $ 0.3013$ & $ 1.0267$ \\ 
+  Sharpe Ratio (GM) & $-0.4409$ & $-0.0261$ & $-0.0283$ & $65.2649$ & $ 0.0172$ \\ 
+  F-Geometric Mean Maximization (GM) & $ 0.0008$ & $ 0.0910$ & $ 0.0908$ & $ 0.0120$ & $ 1.8242$ \\ 
+  C-Geometric Mean Maximization (GM) & $ 0.0005$ & $ 0.0632$ & $ 0.0629$ & $ 0.2165$ & $ 1.5122$ \\ 
+  LIBRO-MPT (GM) & $ 0.0001$ & $ 0.0130$ & $ 0.0130$ & $ 0.3206$ & $ 1.0444$ \\ 
+  LIBRO-CVaR (GM) & $ 0.0010$ & $ 0.0996$ & $ 0.0995$ & $ 0.6722$ & $ 2.1757$ \\ 
+  CVaR (GM) & $ 0.0009$ & $ 0.0876$ & $ 0.0881$ & $ 0.6731$ & $ 1.9805$ \\ 
+  Constrained Minimum Variance (BS) & $ 0.0000$ & $ 0.0080$ & $ 0.0080$ & $ 0.3924$ & $ 1.0232$ \\ 
+  Global Minimum Variance (BS) & $ 0.0000$ & $ 0.0090$ & $ 0.0090$ & $ 0.3013$ & $ 1.0267$ \\ 
+  Sharpe Ratio (BS) & $-0.1525$ & $-0.0426$ & $-0.0473$ & $32.5545$ & $ 1.1020$ \\ 
+  F-Geometric Mean Maximization (BS) & $ 0.0008$ & $ 0.0908$ & $ 0.0906$ & $ 0.0120$ & $ 1.8225$ \\ 
+  C-Geometric Mean Maximization (BS) & $ 0.0002$ & $ 0.0228$ & $ 0.0227$ & $ 0.1990$ & $ 1.1287$ \\ 
+  LIBRO-MPT (BS) & $ 0.0001$ & $ 0.0185$ & $ 0.0185$ & $ 0.3695$ & $ 1.0737$ \\ 
+  LIBRO-CVaR (BS) & $ 0.0010$ & $ 0.0969$ & $ 0.0977$ & $ 0.6744$ & $ 2.1588$ \\ 
+  CVaR (BS) & $ 0.0010$ & $ 0.0962$ & $ 0.0961$ & $ 0.6709$ & $ 2.1160$ \\ 
    \hline
 \end{tabular}
 \end{table}
