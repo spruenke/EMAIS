@@ -1,139 +1,238 @@
+setwd("D:/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/b-thesis/data_new")
+#setwd("/media/erin/DATA/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/b-thesis/data_new") #Ubuntu path
+
+### cryptocurrencies (coingecko)
 rm(list = ls())
-graphics.off()
 
-#Set proper working directory
-dir = "D:/Dropbox/Studium/B.Sc. Economics/Bachelorarbeit/EMAIS_git/EMAIS_DataManip"
-setwd(dir)
+tck.cc = c("btc", "eth", "ltc", "usdt", "xlm", "xrp") # by the 21.04.2020 these cover roughly 82 % of the CC market by market cap in USD
 
-##########################
-#### Cryptocurrencies ####
-##########################
+data.list = lapply(tck.cc, FUN = function(x){
+  read.csv(paste0(x, "-usd-max.csv"))
+})
 
-    tck = c("BTC-USD", "XRP-USD", "ETH-USD", "LTC-USD", "BCH-USD", "BNB-USD", "USDT-USD", "EOS-USD", "TRX-USD", "XLM-USD") #tickers
-    ccc = c("Bitcoin", "Ripple", "Ethereum", "Litecoin", "Bitcoin Cash", "Binance Coin", "Tether", "Eos", "Tronix", "Stellar") #names of the cryptos
-    
-    tck.2 = tolower(tck)
-    tck.2 = paste0(tck.2, "-max.csv")
-    
-    data.list = lapply(tck.2, read.csv)
-    
-    
-    len.2 = sapply(data.list, nrow)
-    max.len.2 = max(len.2)
-    
-    dates.2 = as.Date(data.list[[1]][,1], format = "%Y-%m-%d")
-    data.list.2 = lapply(data.list, "[", 2) #price
-    data.list.2.v = lapply(data.list, "[", 4) #volume
-    
-    
-    data.list.3 = lapply(data.list.2, FUN = function(x){
-      c(rep(NA, (max.len.2 - nrow(x))), x[,1])
-    })
-    
-    data.list.3.v = lapply(data.list.2.v, FUN = function(x){
-      c(rep(NA, (max.len.2 - nrow(x))), x[,1])
-    })
-    crypto.cg = as.data.frame(sapply(data.list.3, cbind))
-    crypto.cg.v = as.data.frame(sapply(data.list.3.v, cbind))
-    colnames(crypto.cg) = ccc
-    rownames(crypto.cg) = dates.2
-    colnames(crypto.cg.v) = ccc
-    rownames(crypto.cg.v) = dates.2
-    
-    save(crypto.cg, file = "crypto_cg.RData")
-    save(crypto.cg.v, file = "crypto_cg_vol.RData")
-    
-    #### Load SDAX data ####
-    sdax = read.csv2("sdax_pr.csv")
-    sdax.vol = read.csv("sdax_vol.csv")
+data.list.new = lapply(data.list, FUN = function(x){
+  x[-which(as.Date(x[,1], format = "%Y-%m-%d") < as.Date("2016-02-11")),]
+})
+data.list.new = lapply(data.list.new, FUN = function(x){
+  x[-which(as.Date(x[,1], format = "%Y-%m-%d") > as.Date("2018-12-31")),]
+})
 
-#####################
-#### Adjustments ####
-#####################
+data.list.dates = lapply(data.list, FUN = function(x){
+  as.Date(x[,1], format = "%Y-%m-%d")
+})
+data.list.new.dates = lapply(data.list.dates, FUN = function(x){
+  x[-which(x < as.Date("2016-02-11"))]
+  
+})
+data.list.new.dates = lapply(data.list.new.dates, FUN = function(x){
+  x[-which(x > as.Date("2018-12-31"))]
+})
+lapply(data.list.new.dates, FUN = function(x){
+  which(data.list.new.dates[[4]]%in%x == F)
+})
+abc = which(data.list.new.dates[[1]]%in%data.list.new.dates[[4]] == F) ## 
+#data.list.new[[4]] = rbind(data.list.new[[4]][1:1203,], rep(NA, 4), data.list.new[[4]][1204:nrow(data.list.new[[4]]),])
 
-    sdax.vol = sdax.vol[-c(1:5),]
-    
-    sdax[,1] = as.Date(as.character(sdax[,1]), format = "%d.%m.%Y")
-    sdax.vol[,1] = as.Date(as.character(sdax.vol[,1]), format = "%m/%d/%Y")
-    sdax.vol[,2:ncol(sdax.vol)] = apply(sdax.vol[,2:ncol(sdax.vol)],2,as.numeric)
-    #crypto data starts from 2013-01-01
-      sdax = sdax[which(sdax[,1]=="2013-01-01"):nrow(sdax),]
-      sdax.vol = sdax.vol[which(sdax.vol[,1]=="2013-01-01"):nrow(sdax.vol),]
-    
-    #lengths of datasets "sdax" and "crypto" differ because sdax constituents are not traded on weekends
-    #adjust length (i.e.: delete observations of crypto which are not in sdax)
-    
-      abc.2 = which(rownames(crypto.cg)%in%as.character(sdax[,1])==TRUE)
-      crypto.cg.1 = crypto.cg[abc.2,]
-      crypto.cg.v.1 = crypto.cg.v[abc.2,]
-    
-    #fill in NA in sdax-data
-      for (i in 1:ncol(sdax)){
-        sdax[,i] = gsub("#N/A N/A", NA, sdax[,i])
-        sdax[,i] = gsub(",", ".", sdax[,i])
-      }
-    
-    
-      dates.sdax = sdax[,1]
-      sdax = sdax[,-1]
-      sdax.vol = sdax.vol[,-1]
-    
-      sdax = as.data.frame(apply(sdax,2,as.numeric))
-    
-      complete.cases(t(sdax))
-    
-    #Use 6 Cryptos starting in August 2015
-    #Use coingecko as final source (for some reason, yahoo finance contains outliers at Tether)
-    
-    #when is data available for 6 cryptos?
-      f.na = apply(crypto.cg.1, 1, FUN = function(x){length(which(!is.na(x))==TRUE)}) #vector of how many not-NA values are in each row
-      f.date = rownames(crypto.cg.1)[min(which(f.na==6))] #date of when 6 cryptos are available
-      
-      sdax.new = sdax[which(dates.sdax==f.date):nrow(sdax),] #adjust sdax data
-      sdax.vol.new = sdax.vol[which(dates.sdax==f.date):nrow(sdax),] #adjust sdax volume in the same way
-      
-      crypto.new = crypto.cg.1[min(which(f.na==6)):nrow(crypto.cg.1),] #adjust crypto data
-      crypto.v.new = crypto.cg.v.1[min(which(f.na==6)):nrow(crypto.cg.1),] #use volume data adjusted by the method before (! price data is referenced by intention so the data matches !)
-      crypto.v.new = crypto.v.new[,which(complete.cases(t(crypto.new))==T)] #use only data of those which are complete in price data
-      crypto.new = crypto.new[,which(complete.cases(t(crypto.new))==T)] #use only complete columns of crypto
-      
-      
-      sdax.new = sdax.new[,which(complete.cases(t(sdax.new))==T)] #use complete cases for adjusted sdax data
-      sdax.vol.new = sdax.vol.new[,which(complete.cases(t(sdax.new))==T)] #same for volume data
-      colnames(sdax.vol.new) = colnames(sdax.new)
-    
-    
-    #Alternative Assets Data from Eikon 04.03.2019
-    #Gold, Palladium, Silver, Diamonds, Wheat and Corn
-    
-      alt = read.csv2("Alternative.csv", header = T)
-      alt[,1] = as.Date(alt[,1], format = "%d.%m.%Y")
-      alt[,2:10] = apply(alt[,2:10], 2, as.numeric)    
-      
-      s.date = which(alt[,1]==row.names(crypto.new)[1])  #adjust dates
-      alt.new = alt[s.date:nrow(alt),] #check dates
-      all(alt.new[,1]==row.names(crypto.new))
-    #is true, thus remove dates from alt.new
-      alt.new = alt.new[,-1]
-      save(sdax.new, sdax.vol.new, crypto.new, crypto.v.new, alt.new, file = "final.RData")
+dates.cryptos = data.list.new.dates[[1]]
 
-########################################
-#### Returns and final preparations ####
-########################################
+data.list.2 = lapply(data.list.new, "[", 2) #price
+data.list.2.v = lapply(data.list.new, "[", 4) #volume
 
-    na.vec = rep(NA,  nrow(sdax.new))
-    dat = as.data.frame(cbind(sdax.new, crypto.new, alt.new))
-    dat.vol = as.data.frame(cbind(sdax.vol.new, crypto.v.new))
-    for(i in 1:9){
-      dat.vol = cbind(dat.vol, na.vec)
-    }
-    dat.vol = as.data.frame(dat.vol)
-    row.names(dat) = row.names(crypto.new)
-    row.names(dat.vol) = row.names(crypto.new)
-    returns = as.data.frame(apply(dat, 2, FUN = function(x){
-      diff(x)/x[-length(x)]
-    }))
-    row.names(returns) = row.names(dat)[-1]
-    dat.vol = dat.vol[-1,]
-    
-    save(returns, dat.vol, file = "final_set.RData")
+cc.prices = do.call(cbind, data.list.2)
+cc.vol = do.call(cbind, data.list.2.v)
+
+
+
+rm(data.list, data.list.2, data.list.2.v, data.list.dates, data.list.new, data.list.new.dates, abc)
+colnames(cc.prices) = tck.cc
+colnames(cc.vol) = tck.cc
+
+##### stock prices ##########################################################################################################
+tck.stock = c("CSI500Smallcap", "S&P600") #omit "DAX", "FTSE", "NASDAC", "Nikkei"
+
+price.sdax = read.csv2("sdax_pr.csv")
+vol.sdax = read.csv("sdax_vol.csv")
+
+#fill in NA in sdax-data
+for (i in 1:ncol(price.sdax)){
+  price.sdax[,i] = gsub("#N/A N/A", NA, price.sdax[,i])
+  price.sdax[,i] = gsub(",", ".", price.sdax[,i])
+  vol.sdax[,i] = gsub("#N/A N/A", NA, vol.sdax[,i])
+  vol.sdax[,i] = gsub(",", ".", vol.sdax[,i])
+}
+
+dates.sdax = as.Date(price.sdax[,1], format = "%d.%m.%Y")
+dates.sdax.vol = as.Date(vol.sdax[,1], format = "%m/%d/%Y")
+all(dates.sdax%in%dates.sdax.vol)
+all(dates.sdax.vol%in%dates.sdax)
+
+dates.sdax = dates.sdax[dates.sdax >= "2016-02-11"]
+price.sdax = price.sdax[as.Date(price.sdax[,1], format = "%d.%m.%Y")%in%dates.sdax,-1]
+vol.sdax   = vol.sdax[as.Date(vol.sdax[,1], format = "%m/%d/%Y")%in%dates.sdax,-1]
+
+
+stock.list = lapply(tck.stock, FUN = function(x){
+  read.csv(paste0(x, "_P_USD.csv"))
+})
+
+stock.prices = lapply(stock.list, FUN = function(x){
+  x[,-1]
+})
+
+topix.p = read.csv2("TOPIX_P_USD.csv")
+
+stock.prices.2 = do.call(cbind, stock.prices)
+stock.prices.2 = cbind(stock.prices.2, topix.p)
+
+stock.list.2 = lapply(tck.stock, FUN = function(x){
+  read.csv(paste0(x, "_VA_USD.csv"))
+})
+
+stock.vol = lapply(stock.list.2, FUN = function(x){
+  x[,-1]
+})
+
+topix.v = read.csv2("TOPIX_VA_USD.csv")
+
+stock.vol.2 = do.call(cbind, stock.vol)
+stock.vol.2 = cbind(stock.vol.2, topix.v)
+dates = as.Date(stock.list[[1]][,1], format = "%m/%d/%Y")
+dates.2 = dates[dates >= as.Date("2016-02-11")]
+dates.2 = dates.2[dates.2 <= as.Date("2018-12-31")]
+ddd = which(dates.2%in%dates.sdax == T)
+all(dates.2%in%dates.sdax) # TRUE
+all(dates.sdax%in%dates.2) # TRUE
+all(dates.2%in%dates.cryptos) # TRUE
+ln.dif = length(dates) - length(dates.2)
+dde = which(dates%in%dates.2 == T)
+stock.prices.2 = stock.prices.2[dde,]
+stock.vol.2 = stock.vol.2[dde,]
+
+dates.miss.p = apply(stock.prices.2, 2, FUN = function(x){
+  length(which(is.na(x) == T))
+})
+dates.miss.s = apply(price.sdax, 2, FUN = function(x){
+  length(which(is.na(x) == T))
+})
+any.nr = which(dates.miss.p > 0) # which stocks have NA values in prices
+any.nr.2 = which(dates.miss.s > 0)
+
+stock.prices.2 = stock.prices.2[,-any.nr]
+stock.vol.2 = stock.vol.2[,-any.nr]
+
+price.sdax = price.sdax[,-any.nr.2]
+vol.sdax = vol.sdax[,-any.nr.2]
+
+
+dates.miss.v = apply(stock.vol.2, 2, FUN = function(x){
+  length(which(is.na(x) == T))
+})
+dates.miss.vs = apply(vol.sdax, 2, FUN = function(x){
+  length(which(is.na(x) == T))
+})
+
+any.vr = which(dates.miss.v > 100) # which stocks have more than 100 NA values in volume
+any.vr.2 = which(dates.miss.vs > 100)
+
+if(any.vr != 0){
+  stock.prices.2 = stock.prices.2[,-any.vr]
+  stock.vol.2 = stock.vol.2[, -any.vr]
+}
+if(any.vr.2 != 0){
+  price.sdax = price.sdax[,-any.vr]
+  vol.sdax = vol.sdax[, -any.vr]
+}
+price.sdax = as.data.frame(apply(price.sdax, 2, as.numeric))
+vol.sdax   = as.data.frame(apply(vol.sdax, 2, as.numeric)) 
+
+#### convert sdax to USD
+fx = read.csv2("EURUSD.csv")
+fx.dates = as.Date(fx[,1], format = "%d.%m.%Y")
+fx = fx[,2]
+da = which(fx.dates%in%dates.2 == T)
+fx = fx[da]
+fx.dates = fx.dates[da]
+all(fx.dates%in%dates.2)
+all(dates.2%in%fx.dates)
+
+price.sdax = price.sdax * fx
+vol.sdax   = vol.sdax * fx * 1000
+
+stock.prices = cbind(price.sdax, stock.prices.2) # price.sdax #
+stock.vol = cbind(vol.sdax, stock.vol.2) # vol.sdax #
+dates.stocks = dates.2
+rm(fx, fx.dates, da, price.sdax, vol.sdax, stock.list, stock.list.2, stock.prices.2, stock.vol.2, dates, dates.2, dates.miss.p, dates.miss.v, ln.dif, any.nr, any.vr, any.nr.2, any.vr.2, dates.miss.s, dates.miss.vs, dates.sdax, dates.sdax.vol, ddd, dde, i, topix.p, topix.v)
+
+### sample 70 stocks in a more or less good proportion
+set.seed(31416)
+a = sample(c(1:62), 19)
+b = sample(c(63:563), 17)
+d = sample(c(564:1164), 17)
+e = sample(c(1165:ncol(stock.prices)), 17)
+sample.stocks = c(a,b,d,e)
+stock.prices = stock.prices[,sample.stocks]
+stock.vol = stock.vol[,sample.stocks]
+rm(a,b,d,e,sample.stocks)
+
+######################### ADJUST CC AND STOCK DATA ################################################################
+
+venn = which(dates.cryptos%in%dates.stocks == T)
+dates.cryptos.2 = dates.cryptos[venn]
+
+all(dates.cryptos.2 == dates.stocks) # evaluates to TRUE, so we have equal dates
+dates.cryptos = dates.cryptos.2
+
+# adjust prices and volume to new dates
+cc.prices = cc.prices[venn,]
+cc.vol = cc.vol[venn,]
+
+rm(dates.cryptos.2, venn)
+
+
+#################### COMMODITIES ################################################################################################
+
+commodities.prices = read.csv("Commodities_P_USD.csv")
+dates = as.Date(commodities.prices[,1], format = "%m/%d/%Y")
+commodities.prices = commodities.prices[,-1]
+
+dd = which(dates%in%dates.stocks == T)
+
+dates.commodities = dates[dd]
+all(dates.commodities == dates.stocks)
+
+commodities.prices = commodities.prices[dd,-3]
+
+rm(dates, dd)
+
+##################### PUT IT ALL TOGETHER ##########################################################################################
+
+prices = cbind(stock.prices, commodities.prices, cc.prices)
+volume = cbind(stock.vol, matrix(NA, nrow = nrow(commodities.prices), ncol = ncol(commodities.prices)), cc.vol)
+a = which(complete.cases(prices) == F) # there is one observation to be NA, we will delete the whole observation
+
+dates = dates.stocks
+if(a != 0){
+  prices = prices[-a,]
+  volume = volume[-a,]
+  dates = dates.stocks[-a]
+} else {
+  dates = dates.stocks
+}
+
+
+
+
+rm(a, tck.cc, tck.stock, cc.prices, cc.vol, commodities.prices, stock.prices, stock.vol, dates.commodities, dates.cryptos, dates.stocks)
+
+### RETURNS ###
+prices = data.matrix(prices)
+volume = data.matrix(volume)
+#prices = prices[,-128]
+#volume = volume[,-128]
+#prices = prices[,-c(130,131,132,133,456)]
+#volume = volume[,-c(130,131,132,133,456)]
+returns = apply(prices, 2, FUN = function(x){
+  x[-1]/x[-length(x)] - 1
+})
+
+save(prices, volume, returns, dates, file = "final_set.RData")

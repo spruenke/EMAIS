@@ -1,0 +1,36 @@
+% latex table generated in R 3.5.1 by xtable 1.8-3 package
+% Fri Jun 05 15:42:30 2020
+\begin{table}[ht]
+\centering
+\begin{tabular}{rlll}
+  \hline
+ & $\lvert \hat{S} \rvert$ & p-value (SW-Test) & p-value (t-Test) \\ 
+  \hline
+Naive (AM) & $ 0.0308$ & $0.0000$ & $    NA$ \\ 
+  Constrained Minimum Variance (AM) & $ 1.2001$ & $0.0000$ & $0.0001$ \\ 
+  Global Minimum Variance (AM) & $ 1.1653$ & $0.0000$ & $0.0001$ \\ 
+  Sharpe Ratio (AM) & $24.9577$ & $0.0000$ & $0.3299$ \\ 
+  F-Geometric Mean Maximization (AM) & $ 0.0871$ & $0.0000$ & $0.9706$ \\ 
+  C-Geometric Mean Maximization (AM) & $ 0.6975$ & $0.0000$ & $0.9779$ \\ 
+  LIBRO-MPT (AM) & $ 0.3656$ & $0.0000$ & $0.6078$ \\ 
+  LIBRO-CVaR (AM) & $ 0.1644$ & $0.0000$ & $0.2397$ \\ 
+  CVaR (AM) & $ 1.1735$ & $0.0000$ & $0.4974$ \\ 
+  Constrained Minimum Variance (GM) & $ 1.1881$ & $0.0000$ & $0.0001$ \\ 
+  Global Minimum Variance (GM) & $ 1.1653$ & $0.0000$ & $0.0001$ \\ 
+  Sharpe Ratio (GM) & $14.7722$ & $0.0000$ & $0.7705$ \\ 
+  F-Geometric Mean Maximization (GM) & $ 0.0797$ & $0.0000$ & $0.9890$ \\ 
+  C-Geometric Mean Maximization (GM) & $ 0.0343$ & $0.0000$ & $0.4767$ \\ 
+  LIBRO-MPT (GM) & $ 0.3858$ & $0.0000$ & $0.6072$ \\ 
+  LIBRO-CVaR (GM) & $ 0.0341$ & $0.0000$ & $0.1909$ \\ 
+  CVaR (GM) & $ 1.0062$ & $0.0000$ & $0.1989$ \\ 
+  Constrained Minimum Variance (BS) & $ 1.1024$ & $0.0000$ & $0.0004$ \\ 
+  Global Minimum Variance (BS) & $ 1.1653$ & $0.0000$ & $0.0001$ \\ 
+  Sharpe Ratio (BS) & $24.8963$ & $0.0000$ & $0.3275$ \\ 
+  F-Geometric Mean Maximization (BS) & $ 0.0903$ & $0.0000$ & $0.9766$ \\ 
+  C-Geometric Mean Maximization (BS) & $ 0.0889$ & $0.0000$ & $0.2501$ \\ 
+  LIBRO-MPT (BS) & $ 0.4078$ & $0.0000$ & $0.6088$ \\ 
+  LIBRO-CVaR (BS) & $ 0.2196$ & $0.0000$ & $0.2733$ \\ 
+  CVaR (BS) & $ 0.7374$ & $0.0000$ & $0.3843$ \\ 
+   \hline
+\end{tabular}
+\end{table}

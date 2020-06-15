@@ -1,7 +1,7 @@
 
 Name of Quantlet: 'EMAIS_Visual'
 
-Published in: 'Bachelor Thesis: Evaluation of Multi-Asset Investment Strategies with Digital Assets'
+Published in: 'Evaluation of Multi-Asset Investment Strategies with Digital Assets'
 
 Description: 'This Quantlet produces visual results of the optimization routines. It gives information about (cumulated) performance, density, success metrics and their reliability as well as results according to strategies and estimators.'
 

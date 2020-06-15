@@ -3,6 +3,7 @@
 ### Mean-Variance
 ### Based on Sample of dim T x N (i.e.: T Observations for N Assets)
 
+
 par.est = function(x, M = 60, lam = 1, method = "ar"){ #x = matrix/dataframe of assets (T obs., N assets), M is window size for estimation
   data = x[1:M,]  
   switch(method,

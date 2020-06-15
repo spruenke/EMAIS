@@ -3,7 +3,7 @@
 #See Modern Portfolio Theory and Investment Analysis
 
 
-mv.opt = function(mu, sigma, gamma = 1, method = "cmv", mu.p = NULL){
+mv.opt = function(mu, sigma, gamma = 1, method = "cmv", mu.p = NULL, wealth, prices){
   
   #provide estimators for Target Return, Global Minimum Variance, Maximum Sharpe Ratio
   switch(method,
@@ -37,5 +37,9 @@ mv.opt = function(mu, sigma, gamma = 1, method = "cmv", mu.p = NULL){
          }
 
          )
+  
+  #check for correct increments and change weights in a way that only integers of assets will be bought
+  w.rel = floor(w.rel * wealth / prices) * prices / wealth
+  
   return(list("weights" = w.rel, "expected return" = t(w.rel)%*%mu, "expected variance" = t(w.rel)%*%sigma%*%w.rel, "method" = method, "length" = length(mu)))
 }

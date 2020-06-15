@@ -1,7 +1,7 @@
 
 Name of Quantlet: 'EMAIS_ParamEst'
 
-Published in: 'Bachelor Thesis: Evaluation of Multi-Asset Investment Strategies with Digital Assets'
+Published in: 'Evaluation of Multi-Asset Investment Strategies with Digital Assets'
 
 Description: 'This Quantlet calculates the necessary parameters for the optimization routines based on the sample data.'
 
@@ -11,4 +11,4 @@ Author: 'Erin Dirk Spruenken'
 
 See also: 'EMAIS_DataManip, EMAIS_Optim, EMAIS_Visual'
 
-Datafile: 'final_set.RData, functions.R'
+Datafile: 'final_set.RData, dates.RData, functions.R, parameters.RData'
