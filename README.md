@@ -1,5 +1,5 @@
 # EMAIS
-Quantlets for Bachelor Thesis
+Quantlets for Manuscript
 "Evaluation of Multi-Asset Investment Strategies with Digital Assets" (EMAIS)
 
 1.: DataManip - Data Manipulation and Gathering
